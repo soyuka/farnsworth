@@ -27,7 +27,7 @@ function view (state, dispatch) {
     }
 
     if (state.layout.current) {
-      dispatch(AddElement({target, state}))
+      dispatch(AddElement({target}))
       return
     }
 

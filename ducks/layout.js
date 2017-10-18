@@ -42,8 +42,8 @@ export function SelectNothing() {
   return {type: SELECT_NOTHING, render: true}
 }
 
-export function AddElement({target, state}) {
-  return function (dispatch) {
+export function AddElement({target}) {
+  return function (dispatch, getState) {
     const key = uuid()
 
     const element = require('../elements/container.js')({key, state})
@@ -61,7 +61,7 @@ export function AddElement({target, state}) {
       fragment.byId[target.id].appendChild(element)
     }
 
-    setupElement({element, state, dispatch})
+    setupElement({element, getState(), dispatch})
     dispatch(ChooseNothing())
     dispatch(UpdateFragment(fragment))
   }
