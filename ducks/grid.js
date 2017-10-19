@@ -21,23 +21,52 @@ const initialState = {
   width: `${Math.floor(screenWidth / factor)}rem`,
   height: `${document.documentElement.clientHeight / factor}rem`,
   breakpoints: {
-    1: 'w5',
-    [(10 * screenWidth ) / 100]: 'w10',
-    [(20 * screenWidth ) / 100]: 'w20',
-    [(25 * screenWidth ) / 100]: 'w25',
-    [(30 * screenWidth ) / 100]: 'w30',
-    [(33 * screenWidth ) / 100]: 'w33',
-    [(34 * screenWidth ) / 100]: 'w34',
-    [(40 * screenWidth ) / 100]: 'w40',
-    [(50 * screenWidth ) / 100]: 'w50',
-    [(60 * screenWidth ) / 100]: 'w60',
-    [(70 * screenWidth ) / 100]: 'w70',
-    [(75 * screenWidth ) / 100]: 'w75',
-    [(80 * screenWidth ) / 100]: 'w80',
-    [(90 * screenWidth ) / 100]: 'w90',
-    [(100 * screenWidth ) / 100]: 'w100'
-  }
+    byId: {
+      'w1': factor,
+      'w2': factor*2,
+      'w3': factor*3,
+      'w4': factor*4,
+      'w5': factor*5,
+      'w-10': (10 * screenWidth ) / 100,
+      'w-20': (20 * screenWidth ) / 100,
+      'w-25': (25 * screenWidth ) / 100,
+      'w-30': (30 * screenWidth ) / 100,
+      'w-33': (33 * screenWidth ) / 100,
+      'w-34': (34 * screenWidth ) / 100,
+      'w-40': (40 * screenWidth ) / 100,
+      'w-50': (50 * screenWidth ) / 100,
+      'w-60': (60 * screenWidth ) / 100,
+      'w-70': (70 * screenWidth ) / 100,
+      'w-75': (75 * screenWidth ) / 100,
+      'w-80': (80 * screenWidth ) / 100,
+      'w-90': (90 * screenWidth ) / 100,
+      'w-100': (100 * screenWidth ) / 100,
+    },
+    text: {
+      'w1': '1em',
+      'w2': '2em',
+      'w3': '3em',
+      'w4': '4em',
+      'w5': '5em',
+      'w-10': '10%',
+      'w-20': '20%',
+      'w-25': '25%',
+      'w-30': '30%',
+      'w-33': '33%',
+      'w-34': '34%',
+      'w-40': '40%',
+      'w-50': '50%',
+      'w-60': '60%',
+      'w-70': '70%',
+      'w-75': '75%',
+      'w-80': '80%',
+      'w-90': '90%',
+      'w-100': '100%'
+    }
+  },
 }
+
+initialState.breakpoints.allIds = Object.keys(initialState.breakpoints.byId)
 
 export default function grid (state = initialState, action) {
   switch (action.type) {

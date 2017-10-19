@@ -1,6 +1,7 @@
 var html = require('choo/html')
 const {changeDOMTitle} = require('choo-redux')
-const {ChooseContainer, AddElement, SelectElement, SelectNothing} = require('../ducks/layout')
+const {AddElement, SelectElement, SelectNothing} = require('../ducks/layout')
+const topbar = require('../partial/topbar')
 
 var TITLE = '🚂🚋🚋'
 
@@ -31,29 +32,23 @@ function view (state, dispatch) {
       return
     }
 
-    if (target.id === 'blueprint') {
-      if(state.layout.selected) {
-        dispatch(SelectNothing())
-      }
-      return
-    }
-
-    if (target.id !== state.layout.selected ) {
-      dispatch(SelectElement({target}))
-    }
-  }
-
-  function add() {
-    dispatch(ChooseContainer())
+    // if (target.id === 'blueprint') {
+    //   if(state.layout.selected) {
+    //     dispatch(SelectNothing())
+    //   }
+    //   return
+    // }
+    //
+    // if (target.id !== state.layout.selected ) {
+    //   dispatch(SelectElement({target}))
+    // }
   }
 
   const fragment = state.layout.fragment
 
   return html`
   <body class="sans-serif">
-    <div class="farnsworth-topbar">
-      <button onclick=${add}>Container</button>
-    </div>
+    ${topbar(state, dispatch)}
     <div id="blueprint" class="farnsworth-blueprint ${state.layout.element ? 'farnsworth-has-element' : ''}" style="width: ${state.grid.width}; min-height: ${state.grid.height};" onclick=${clickBlueprint}>
       ${fragment.allIds.map(e => {
         return fragment.byId[e]

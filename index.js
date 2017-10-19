@@ -1,10 +1,12 @@
 const choo = require('choo')
 const css = require('sheetify')
-const {createStore, applyMiddleware, compose} = require('redux')
-const reducer = require('./ducks/index.js')
 const {chooMiddleware, patchRouter} = require('choo-redux')
-const {logger} = require('redux-logger')
+const { logger } = require('redux-logger')
 const thunk = require('redux-thunk').default
+import { createEpicMiddleware } from 'redux-observable'
+
+const { createStore, applyMiddleware, compose } = require('redux')
+const { rootReducer, rootEpic } = require('./ducks/index.js')
 
 css('tachyons')
 css('./style.css')
@@ -24,8 +26,8 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 		// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
 	}) : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(logger, chooMiddleware(app), thunk))
-const store = createStore(reducer, {}, enhancer)
+const enhancer = composeEnhancers(applyMiddleware(logger, chooMiddleware(app), thunk, createEpicMiddleware))
+const store = createStore(rootReducer, {}, enhancer)
 patchRouter(app, store)
 
 app.route('/', require('./views/main'))

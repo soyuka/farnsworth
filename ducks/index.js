@@ -1,8 +1,12 @@
-const {combineReducers} = require('redux')
-const layout = require('./layout').default
-const grid = require('./grid').default
-const config = require('./config').default
+import { combineReducers } from 'redux'
+import { combineEpics } from 'redux'
 
-module.exports = combineReducers({
-  config, grid, layout
+import layout, { selectElementEpic } from './layout.js'
+import grid from './grid.js'
+import tool from './tool.js'
+
+export const rootReducer = combineReducers({
+  grid, layout, tool
 })
+
+export const rootEpic = combineEpics(selectElementEpic)

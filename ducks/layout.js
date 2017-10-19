@@ -45,6 +45,7 @@ export function SelectNothing() {
 export function AddElement({target}) {
   return function (dispatch, getState) {
     const key = uuid()
+    const state = getState()
 
     const element = require('../elements/container.js')({key, state})
 
@@ -61,7 +62,7 @@ export function AddElement({target}) {
       fragment.byId[target.id].appendChild(element)
     }
 
-    setupElement({element, getState(), dispatch})
+    setupElement({element, state, dispatch})
     dispatch(ChooseNothing())
     dispatch(UpdateFragment(fragment))
   }
@@ -102,3 +103,9 @@ export default function layout (state = initialState, action) {
   }
 }
 
+export const selectElementEpic$ = (action$, store) => {
+  action$.ofType(SELECT_ELEMENT)
+  .do(() => {
+
+  })
+}

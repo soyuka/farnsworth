@@ -32,10 +32,13 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bankai": "^5.0.0-1",
     "dependency-check": "^2.9.1",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "tsify": "^3.0.3",
+    "typescript": "^2.5.3"
   },
   "browserify": {
     "transform": [
+      "tsify",
       "babelify"
     ]
   }
