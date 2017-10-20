@@ -1,6 +1,6 @@
-const html = require('choo/html')
+import html from 'choo/html'
 
-function topbar (state, dispatch) {
+export default function topbar (state, dispatch) {
   return html`
   <header class="farnsworth-topbar">
     <nav class="w-100 ph3 pv3">
@@ -20,5 +20,3 @@ function topbar (state, dispatch) {
   function chooseContainer () {
   }
 }
-
-module.exports = topbar

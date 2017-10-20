@@ -1,11 +1,10 @@
-var html = require('choo/html')
-const {changeDOMTitle} = require('choo-redux')
-const {AddElement, SelectElement, SelectNothing} = require('../ducks/layout')
-const topbar = require('../partial/topbar')
+import html from 'choo/html'
+import {changeDOMTitle} from 'choo-redux'
+// import {AddElement, SelectElement, SelectNothing} from '../ducks/layout'
+import {AddElement} from '../ducks/layout'
+import topbar from '../partial/topbar'
 
-var TITLE = '🚂🚋🚋'
-
-module.exports = view
+const TITLE = '🚂🚋🚋'
 
 function getTargetThatHasId(target) {
   while(target && !target.id) {
@@ -15,7 +14,7 @@ function getTargetThatHasId(target) {
   return target
 }
 
-function view (state, dispatch) {
+export default function view (state, dispatch) {
   if (state.title !== TITLE) {
     dispatch(changeDOMTitle(TITLE))
   }

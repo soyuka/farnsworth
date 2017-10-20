@@ -1,16 +1,29 @@
-const uuid = require('uuid/v1')
-const {render} = require('choo-redux')
+import uuid from 'uuid/v1'
+import { Action } from 'redux'
+import { Epic } from 'redux-observable'
+import { Observable } from 'rxjs/Rx'
+// import {render} from 'choo-redux'
 
-const {setupElement} = require('../lib/graphic')
+import {setupElement} from '../lib/graphic'
+
+import container from '../elements/container'
 
 const CHOOSE_CONTAINER = '[Layout] Choose container'
 const CHOOSE_NOTHING = '[Layout] Choose nothing'
 const UPDATE_FRAGMENT = '[Layout] Update fragment'
-const ADD_ELEMENT = '[Layout] Add Element'
+// const ADD_ELEMENT = '[Layout] Add Element'
 const SELECT_ELEMENT = '[Layout] Select Element'
 const SELECT_NOTHING = '[Layout] Select Nothing'
 
 const fragment = {byId: {}, allIds: []}
+
+export type LayoutState = {
+  element: null | string
+  current: null | string
+  selected: null | string
+  fragment: any
+}
+
 const initialState = {
   element: null,
   current: null,
@@ -47,7 +60,7 @@ export function AddElement({target}) {
     const key = uuid()
     const state = getState()
 
-    const element = require('../elements/container.js')({key, state})
+    const element = container({key, state})
 
     if (!target || !target.id) {
       throw new Error('No parent')
@@ -103,9 +116,11 @@ export default function layout (state = initialState, action) {
   }
 }
 
-export const selectElementEpic$ = (action$, store) => {
-  action$.ofType(SELECT_ELEMENT)
-  .do(() => {
-
-  })
+export const selectElementEpic$: Epic<any, LayoutState, null> = (action$, store) => {
+  console.log(action$)
+  return Observable.empty() as Observable<Action>
+  // return action$.ofType(SELECT_ELEMENT)
+  // .do(() => {
+  //
+  // })
 }

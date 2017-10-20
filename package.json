@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "bankai build index.js",
-    "inspect": "bankai inspect index.js",
-    "start": "bankai start index.js",
+    "build": "bankai build src/index.ts -j [--plugin tsify]",
+    "inspect": "bankai inspect src/index.ts -j [--plugin tsify]",
+    "start": "bankai start src/index.ts -j [--plugin tsify]",
     "test": "standard && npm run test-deps",
     "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tachyons"
   },
@@ -24,7 +24,9 @@
     "redux-observable": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "resizable": "^1.2.0",
+    "rxjs": "^5.5.0",
     "sheetify": "^6.2.0",
+    "st8": "^1.1.1",
     "tachyons": "^4.8.1",
     "uuid": "^3.1.0"
   },
@@ -38,7 +40,6 @@
   },
   "browserify": {
     "transform": [
-      "tsify",
       "babelify"
     ]
   }

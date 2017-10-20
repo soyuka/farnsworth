@@ -1,10 +1,8 @@
-var html = require('choo/html')
+import html from 'choo/html'
 
-var TITLE = '🚂🚋🚋 - route not found'
+const TITLE = '🚂🚋🚋 - route not found'
 
-module.exports = view
-
-function view (state, emit) {
+export default function view (state, emit) {
   if (state.title !== TITLE) emit(state.events.DOMTITLECHANGE, TITLE)
   return html`
     <body class="sans-serif">

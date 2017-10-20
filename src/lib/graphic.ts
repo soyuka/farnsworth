@@ -1,8 +1,7 @@
-const Resizable = require('resizable');
+import Resizable from 'resizable'
 
 function closest(v, grid) {
   let i = 0
-  let j = 0
   let num
 
   while(i < grid - 1) {
@@ -36,7 +35,7 @@ function nextClassOnGrid(size, breakpoints = {}) {
   return sizes[0].class
 }
 
-function setupElement({element, state, dispatch}) {
+export function setupElement({element, state, dispatch}) {
   const factor = state.grid.factor
   const resizable = new Resizable(element, {
     within: element.parent,
@@ -83,5 +82,3 @@ function setupElement({element, state, dispatch}) {
 
   return resizable
 }
-
-module.exports.setupElement = setupElement

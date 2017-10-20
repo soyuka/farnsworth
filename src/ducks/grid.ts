@@ -1,3 +1,4 @@
+import { NormalizedState } from '../interface'
 const GRID_COLUMNS = 'GRID_COLUMNS'
 
 // rem unit
@@ -13,7 +14,21 @@ export function setGridColumns(payload = {number: 0}) {
 
 const screenWidth = 1280
 
-const initialState = {
+export type Breakpoints = {
+  text: any
+} & NormalizedState
+
+export type GridState = {
+  factor: number
+  columns: number[]
+  lines: number[]
+  size: string
+  width: string
+  height: string
+  breakpoints: Breakpoints
+}
+
+const initialState: GridState = {
   factor: factor,
   columns: new Array(screenWidth / factor).fill(0),
   lines: new Array(Math.floor(document.documentElement.clientHeight / factor)).fill(0),
@@ -62,7 +77,8 @@ const initialState = {
       'w-80': '80%',
       'w-90': '90%',
       'w-100': '100%'
-    }
+    },
+    allIds: []
   },
 }
 
