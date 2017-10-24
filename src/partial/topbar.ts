@@ -1,12 +1,24 @@
 import html from 'choo/html'
+import {PickRow, PickColumn} from '../ducks/layout'
 
 export default function topbar (state, dispatch) {
   return html`
   <header class="farnsworth-topbar">
-    <nav class="w-100 ph3 pv3">
-      <a class="mr3 dib"><a class="f6 link dim br2 ph3 pv2 mb2 dib white bg-navy ${state.tool.active === 'selection' ? 'active' : ''}" onclick=${selectionTool()}>Selection</a></a>
-      <a class="mr3 dib"><button onclick=${resizeTool()}>Resize Tool</button></a>
-      <a class="mr3 dib"><button onclick=${chooseContainer()}>Container</button></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav">
+        <li class="nav-item ${state.tool.active === 'selection' ? 'active' : ''}">
+          <a class="nav-link" onclick=${selectionTool()}>Selection</a>
+        </li>
+        <li class="nav-item ${state.tool.active === 'resize' ? 'active' : ''}">
+          <a class="nav-link" onclick=${resizeTool()}>Resize</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick=${pickRow}>Row</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick=${pickColumn}>Column</a>
+        </li>
+      </ul>
     </nav>
   </header>
   `
@@ -17,6 +29,11 @@ export default function topbar (state, dispatch) {
   function resizeTool () {
   }
 
-  function chooseContainer () {
+  function pickRow () {
+    dispatch(PickRow())
+  }
+
+  function pickColumn () {
+    dispatch(PickColumn())
   }
 }

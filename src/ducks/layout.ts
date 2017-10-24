@@ -1,14 +1,16 @@
-import uuid from 'uuid/v1'
+import * as uuid from 'uuid/v1'
 import { Action } from 'redux'
 import { Epic } from 'redux-observable'
 import { Observable } from 'rxjs/Rx'
 // import {render} from 'choo-redux'
 
-import {setupElement} from '../lib/graphic'
+// import {setupElement} from '../lib/graphic'
 
-import container from '../elements/container'
+import {getElement} from '../elements'
 
-const CHOOSE_CONTAINER = '[Layout] Choose container'
+// const CHOOSE_CONTAINER = '[Layout] Choose container'
+const PICK_ROW = '[Layout] Pick row'
+const PICK_COLUMN = '[Layout] Pick column'
 const CHOOSE_NOTHING = '[Layout] Choose nothing'
 const UPDATE_FRAGMENT = '[Layout] Update fragment'
 // const ADD_ELEMENT = '[Layout] Add Element'
@@ -16,43 +18,62 @@ const SELECT_ELEMENT = '[Layout] Select Element'
 const SELECT_NOTHING = '[Layout] Select Nothing'
 
 const fragment = {byId: {}, allIds: []}
+const root = []
 
 export type LayoutState = {
   element: null | string
   current: null | string
   selected: null | string
-  fragment: any
+  fragment: any,
+  root: Element[]
 }
 
 const initialState = {
   element: null,
   current: null,
   selected: null,
-  fragment
+  fragment,
+  root
 }
 
 /**
  * Action creators
  */
-export function ChooseContainer(payload = {}) {
-  return {type: CHOOSE_CONTAINER, render: true}
+// export function ChooseContainer(payload = {}) {
+//   return {type: CHOOSE_CONTAINER, render: true}
+// }
+
+export function PickRow() {
+ return {type: PICK_ROW, render: true}
 }
 
-export function ChooseNothing() {
-  return {type: CHOOSE_NOTHING}
+export function PickColumn() {
+ return {type: PICK_COLUMN, render: true}
 }
+
+// export function ChooseNothing() {
+//   return {type: CHOOSE_NOTHING}
+// }
 
 export function UpdateFragment(fragment) {
-  return {type: UPDATE_FRAGMENT, fragment, render: true}
+  return {
+    type: UPDATE_FRAGMENT,
+    render: true,
+    fragment
+  }
 }
 
 // @TODO select nothing
-export function SelectElement({target}) {
-  return {type: SELECT_ELEMENT, target, render: true}
+export class SelectElement {
+  type = SELECT_ELEMENT
+  render = true
+
+  constructor(public target) {}
 }
 
-export function SelectNothing() {
-  return {type: SELECT_NOTHING, render: true}
+export class SelectNothing {
+  type = SELECT_NOTHING
+  render = true
 }
 
 export function AddElement({target}) {
@@ -60,7 +81,7 @@ export function AddElement({target}) {
     const key = uuid()
     const state = getState()
 
-    const element = container({key, state})
+    const element = getElement({key, state, element: state.layout.current})
 
     if (!target || !target.id) {
       throw new Error('No parent')
@@ -70,13 +91,16 @@ export function AddElement({target}) {
       element.parent = target
       fragment.byId[key] = element
       fragment.allIds.push(key)
+      root.push(element)
     } else {
       element.parent = target
       fragment.byId[target.id].appendChild(element)
+      fragment.byId[key] = element
+      fragment.allIds.push(key)
     }
 
-    setupElement({element, state, dispatch})
-    dispatch(ChooseNothing())
+    // setupElement({element, state, dispatch})
+    //dispatch(new ChooseNothing())
     dispatch(UpdateFragment(fragment))
   }
 }
@@ -86,8 +110,12 @@ export function AddElement({target}) {
  */
 export default function layout (state = initialState, action) {
   switch (action.type) {
-    case CHOOSE_CONTAINER: {
-      return { ...state, current: 'container' }
+    case PICK_ROW: {
+      return { ...state, current: 'row' }
+    }
+
+    case PICK_COLUMN: {
+      return { ...state, current: 'column' }
     }
 
     case CHOOSE_NOTHING: {
@@ -99,8 +127,9 @@ export default function layout (state = initialState, action) {
     }
 
     case SELECT_ELEMENT: {
-      document.getElementById(action.target.id).classList.add('farnsworth-selected')
-      return { ...state, selected: action.target.id }
+      //document.getElementById(action.target.id).classList.add('farnsworth-selected')
+      //return { ...state, selected: action.target.id }
+      return {...state}
     }
 
     case SELECT_NOTHING: {

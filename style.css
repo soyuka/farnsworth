@@ -1,9 +1,11 @@
 .farnsworth-column {
   border: 1px solid #6f8cc8;
+  float: left;
 }
 
 .farnsworth-blueprint {
   position: relative;
+  margin: 0 auto;
 }
 
 .farnsworth-grid {
@@ -12,10 +14,19 @@
   height: 100%;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
 .farnsworth-container {
-  z-index: 2;
+  background: red;
+  border: 1px solid black;
+  padding: 1em;
+}
+
+.farnsworth-container-column {
+  background: green;
+  border: 1px solid black;
+  padding: 0.5em;
 }
 
 .farnsworth-selected {

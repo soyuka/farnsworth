@@ -14,10 +14,10 @@ import { rootReducer, rootEpic } from './ducks'
 import mainView from './views/main'
 import notFoundView from './views/404'
 
-css('tachyons')
+css('bootstrap')
 css('../style.css')
 
-const app = choo()
+const app = new choo({})
 if (process.env.NODE_ENV !== 'production') {
   app.use(require('choo-devtools')())
   app.use(require('choo-log')())

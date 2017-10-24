@@ -43,18 +43,18 @@ export default function view (state, dispatch) {
     // }
   }
 
-  const fragment = state.layout.fragment
+  const root = state.layout.root
 
   return html`
-  <body class="sans-serif">
+  <body>
     ${topbar(state, dispatch)}
     <div id="blueprint" class="farnsworth-blueprint ${state.layout.element ? 'farnsworth-has-element' : ''}" style="width: ${state.grid.width}; min-height: ${state.grid.height};" onclick=${clickBlueprint}>
-      ${fragment.allIds.map(e => {
-        return fragment.byId[e]
+      ${root.map(e => {
+        return e
       })}
       <div class="farnsworth-grid">
         ${state.grid.lines.map(e => state.grid.columns.map((e) => {
-          const el = html`<div style="width: ${state.grid.size};height: ${state.grid.size};" class="farnsworth-column fl"></div>`
+          const el = html`<div style="width: ${state.grid.size};height: ${state.grid.size};" class="farnsworth-column"></div>`
 
           el.isSameNode = function (target) {
             return true

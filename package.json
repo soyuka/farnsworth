@@ -10,8 +10,10 @@
     "test-deps": "dependency-check . && dependency-check . --extra --no-dev -i tachyons"
   },
   "dependencies": {
+    "@types/node": "^8.0.46",
     "babel-preset-env": "^1.6.0",
     "babelify": "^7.3.0",
+    "bootstrap": "^4.0.0-beta.2",
     "choo": "^6.0.0-4",
     "choo-devtools": "^1.5.0",
     "choo-log": "^7.2.1",
@@ -27,7 +29,6 @@
     "rxjs": "^5.5.0",
     "sheetify": "^6.2.0",
     "st8": "^1.1.1",
-    "tachyons": "^4.8.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
